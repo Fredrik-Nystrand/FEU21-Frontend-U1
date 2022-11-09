@@ -1,0 +1,45 @@
+.headerWrapper {
+  background-color: var(--clr-bg-light);
+  box-shadow: 0 0 4px 5px rgba(0, 0, 0, 0.199);
+  border-top: 3px solid var(--clr-primary);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+  position: relative;
+}
+
+.header > h1 {
+  color: var(--clr-primary);
+  margin: 0;
+  line-height: 100%;
+}
+
+.header > a {
+  text-decoration: none;
+  color: var(--clr-primary);
+  font-family: "Great Vibes", cursive;
+}
+
+.headerOptions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.avatar {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100vw;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-bg);
+  font-weight: medium;
+  color: var(--clr-primary);
+}

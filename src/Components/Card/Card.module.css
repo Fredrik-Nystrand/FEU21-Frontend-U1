@@ -1,0 +1,31 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 1rem;
+  background-color: var(--clr-bg);
+  border-radius: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.card:hover {
+  background-color: #222227;
+}
+
+.status {
+  text-transform: capitalize;
+}
+
+.top {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.bottom {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
