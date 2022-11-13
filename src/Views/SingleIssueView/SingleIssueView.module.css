@@ -10,13 +10,87 @@
 }
 
 .wrapper h2 {
-  text-align: center;
-  margin: 1rem;
   font-weight: 400;
-  color: var(--clr-primary);
+}
+
+.wrapper h4 {
+  font-weight: 400;
 }
 
 .wrapper a {
   text-decoration: none;
   color: inherit;
+}
+
+.header {
+  display: flex;
+  gap: 1rem;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.back:hover {
+  background-color: var(--clr-bg-dark);
+}
+
+.metaData {
+  flex: 1;
+}
+
+.container {
+  background-color: var(--clr-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subject {
+  display: flex;
+}
+
+.status {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom span {
+  font-size: 0.8rem;
+}
+
+.textarea {
+  height: 100px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--clr-bg);
+  font-size: 16px;
+  color: var(--clr-input);
+  resize: none;
+}
+
+.textarea:focus {
+  border: none;
+  outline: none;
 }

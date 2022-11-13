@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "issueId": 1,
+    "customerId": "User123",
+    "comment": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, sint nihil doloribus quo eaque ea consequatur enim qui nulla recusandae.",
+    "created": "2017-04-21"
+  },
+  {
+    "id": 2,
+    "issueId": 1,
+    "customerId": "User234",
+    "comment": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, sint nihil doloribus quo eaque ea consequatur enim qui nulla recusandae.",
+    "created": "2020-06-12"
+  },
+  {
+    "id": 3,
+    "issueId": 2,
+    "customerId": "User123",
+    "comment": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, sint nihil doloribus quo eaque ea consequatur enim qui nulla recusandae.",
+    "created": "2022-09-01"
+  }
+]

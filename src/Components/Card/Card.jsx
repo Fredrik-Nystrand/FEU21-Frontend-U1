@@ -10,20 +10,20 @@ const Card = ({ issue }) => {
         style={{
           borderBottom:
             (issue.status === "completed"
-              ? "#2bcb5e"
+              ? "var(--clr-primary)"
               : issue.status === "critical"
-              ? "#af5d68"
-              : "#cba02b") + " 2px solid",
+              ? "var(--clr-error)"
+              : "var(--clr-warning)") + " 2px solid",
         }}>
         <div
           className={styles.top}
           style={{
             color:
               issue.status === "completed"
-                ? "#2bcb5e"
+                ? "var(--clr-primary)"
                 : issue.status === "critical"
-                ? "#af5d68"
-                : "#cba02b",
+                ? "var(--clr-error)"
+                : "var(--clr-warning)",
           }}>
           <p>{issue.subject}</p>
           <p className={`${styles.status}`}>{issue.status}</p>
