@@ -181,6 +181,38 @@ h1 {
   color: var(--clr-input);
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-warning {
+  color: var(--clr-error);
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.gap-half {
+  gap: 0.5rem;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.gap-3 {
+  gap: 3rem;
+}
+
 .mt-1 {
   margin-top: 1rem;
 }

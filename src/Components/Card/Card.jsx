@@ -9,9 +9,9 @@ const Card = ({ issue }) => {
         className={`${styles.card}`}
         style={{
           borderBottom:
-            (issue.status === "completed"
+            (issue.status.status === "completed"
               ? "var(--clr-primary)"
-              : issue.status === "critical"
+              : issue.status.status === "critical"
               ? "var(--clr-error)"
               : "var(--clr-warning)") + " 2px solid",
         }}>
@@ -19,18 +19,18 @@ const Card = ({ issue }) => {
           className={styles.top}
           style={{
             color:
-              issue.status === "completed"
+              issue.status.status === "completed"
                 ? "var(--clr-primary)"
-                : issue.status === "critical"
+                : issue.status.status === "critical"
                 ? "var(--clr-error)"
                 : "var(--clr-warning)",
           }}>
           <p>{issue.subject}</p>
-          <p className={`${styles.status}`}>{issue.status}</p>
+          <p className={`${styles.status}`}>{issue.status.status}</p>
         </div>
         <div className={styles.bottom}>
-          <p>{issue.customerId}</p>
-          <p>{issue.created}</p>
+          <p>{`${issue.customer.firstName} ${issue.customer.lastName}`}</p>
+          <p>{issue.created.split("T")[0]}</p>
         </div>
       </div>
     </Link>

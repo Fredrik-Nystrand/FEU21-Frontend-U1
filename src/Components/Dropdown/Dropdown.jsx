@@ -10,7 +10,7 @@ const Dropdown = ({ visible, options, selected, className }) => {
         <div className={`${className} ${styles.wrapper}`}>
           {options?.map((option) => (
             <div className={`${styles.option}`} key={uId++} onClick={() => selected(option)}>
-              {option}
+              {option.status}
             </div>
           ))}
         </div>
