@@ -8,25 +8,21 @@ import {
   useAddCommentMutation,
 } from "../../features/api/apiSlice"
 import styles from "./SingleIssueView.module.css"
-import fakeIssues from "../../fakeIssues.json"
-import fakeComments from "../../fakeComments.json"
 import Dropdown from "../../Components/Dropdown/Dropdown"
+import { useSelector } from "react-redux"
+import Loader from "../../Components/Loader/Loader"
 
 const SingleIssueView = () => {
   const { id } = useParams()
-  const { data, error, isError, isLoading } = useGetIssueQuery(id)
-  const {
-    data: statuses,
-    error: statusesError,
-    isError: isStatusesError,
-    isLoading: isStatusesLoading,
-  } = useGetStatusesQuery()
-  const [updateIssue] = useUpdateIssueMutation()
-  const [addComment] = useAddCommentMutation()
+  const { data, isLoading: issueLoading } = useGetIssueQuery(id)
+  const { data: statuses, isLoading: isStatusesLoading } = useGetStatusesQuery()
+  const [updateIssue, { isLoading: updateIssueLoading }] = useUpdateIssueMutation()
+  const [addComment, { isLoading: addCommentLoading }] = useAddCommentMutation()
   const navigate = useNavigate()
   const [dropDownOpen, setDropDownOpen] = useState(false)
   const [selectedStatus, setSelectedStatus] = useState()
   const [newComment, setNewComment] = useState("")
+  const user = useSelector((state) => state.user)
 
   useEffect(() => {
     if (selectedStatus) {
@@ -38,17 +34,19 @@ const SingleIssueView = () => {
         customerId: data.customer.id,
       })
     }
-  }, [selectedStatus])
+  }, [selectedStatus, data?.id, data?.subject, data?.description, data?.customer?.id, updateIssue])
 
   const addNewComment = (e) => {
     e.preventDefault()
-    addComment({ comment: newComment, customerId: data.customer.id, issueId: data.id })
+    console.log({ comment: newComment, customerId: user.id, issueId: data.id })
+    addComment({ comment: newComment, customerId: user.id, issueId: data.id })
     setNewComment("")
   }
 
   return (
     <>
-      {!isLoading && (
+      {(issueLoading || isStatusesLoading || updateIssueLoading || addCommentLoading) && <Loader />}
+      {!issueLoading && (
         <div className={`container content`}>
           <div
             className={`${styles.wrapper}`}
@@ -91,12 +89,16 @@ const SingleIssueView = () => {
                     className={`${styles.status} ${dropDownOpen ? styles.dropdownOpen : ""}`}
                     onClick={() => setDropDownOpen((state) => !state)}>
                     <h4>{data.status.status}</h4>
-                    <HiChevronDown />
-                    <Dropdown
-                      visible={dropDownOpen}
-                      options={isStatusesLoading ? [] : statuses}
-                      selected={setSelectedStatus}
-                    />
+                    {user.id && (
+                      <>
+                        <HiChevronDown />
+                        <Dropdown
+                          visible={dropDownOpen}
+                          options={isStatusesLoading ? [] : statuses}
+                          selected={setSelectedStatus}
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className={`${styles.bottom}`}>
@@ -118,17 +120,21 @@ const SingleIssueView = () => {
                 </div>
               </div>
             ))}
-            <h4 className="mt-2">Add comment</h4>
-            <form onSubmit={addNewComment} className="d-flex flex-column gap-half">
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                className={`${styles.textarea}`}
-              />
-              <button type="submit" className={`btn btn-primary`}>
-                Submit
-              </button>
-            </form>
+            {user.id && <h4 className="mt-2">Add comment</h4>}
+            {user.id ? (
+              <form onSubmit={addNewComment} className="d-flex flex-column gap-half">
+                <textarea
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  className={`${styles.textarea}`}
+                />
+                <button type="submit" className={`btn btn-primary`}>
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <h4 className="mt-2">Login to post comments...</h4>
+            )}
           </div>
         </div>
       )}

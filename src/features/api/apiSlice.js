@@ -1,14 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { SERVER_IP, SERVER_PORT } from "../../env"
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7197/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${SERVER_IP}:${SERVER_PORT}/api` }),
   tagTypes: ["issues", "issue", "User"],
   endpoints: (builder) => ({
     //Issues
     getIssues: builder.query({
       query: () => "/issue",
       providesTags: ["Issues"],
+      transformResponse: (response) =>
+        response.sort((a, b) => new Date(b.created) - new Date(a.created)),
     }),
     getIssue: builder.query({
       query: (id) => `/issue/${id}`,
@@ -18,6 +21,14 @@ export const apiSlice = createApi({
       query: (issue) => ({
         url: "/issue",
         method: "PUT",
+        body: issue,
+      }),
+      invalidatesTags: ["Issue", "Issues"],
+    }),
+    addIssue: builder.mutation({
+      query: (issue) => ({
+        url: "/issue",
+        method: "POST",
         body: issue,
       }),
       invalidatesTags: ["Issue", "Issues"],
@@ -63,4 +74,5 @@ export const {
   useAddCommentMutation,
   useLoginCustomerMutation,
   useAddCustomerMutation,
+  useAddIssueMutation,
 } = apiSlice

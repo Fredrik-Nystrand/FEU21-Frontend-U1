@@ -1,18 +1,14 @@
-import { useEffect } from "react"
 import Card from "../Card/Card"
 import styles from "./List.module.css"
 import { useGetIssuesQuery } from "../../features/api/apiSlice"
+import Loader from "../Loader/Loader"
 
 const List = () => {
   const { data, error, isError, isLoading } = useGetIssuesQuery()
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
   return (
     <>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loader />}
       {isError && <p>{error.error}</p>}
       <div className={`${styles.wrapper}`}>
         <h2>Current Issues</h2>

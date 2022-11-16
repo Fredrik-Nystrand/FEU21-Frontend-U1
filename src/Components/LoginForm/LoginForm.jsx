@@ -3,11 +3,12 @@ import { useLoginCustomerMutation, useAddCustomerMutation } from "../../features
 import { useDispatch } from "react-redux"
 import { setUser } from "../../features/login/userSlice"
 import styles from "./LoginForm.module.css"
+import Loader from "../Loader/Loader"
 
-const LoginForm = ({ visible }) => {
+const LoginForm = ({ visible, setVisible }) => {
   const dispatch = useDispatch()
-  const [loginCustomer] = useLoginCustomerMutation()
-  const [addCustomer] = useAddCustomerMutation()
+  const [loginCustomer, { isLoading: loginLoading }] = useLoginCustomerMutation()
+  const [addCustomer, { isLoading: registerLoading }] = useAddCustomerMutation()
   const [register, setRegister] = useState(false)
   const [registerFormData, setRegisterFormData] = useState({
     firstName: "",
@@ -21,6 +22,19 @@ const LoginForm = ({ visible }) => {
   })
   const [submitError, setSubmitError] = useState()
 
+  const resetForm = () => {
+    setLoginFormData({
+      email: "",
+      password: "",
+    })
+    setRegisterFormData({
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      confirmPassword: "",
+    })
+  }
+
   const submitLogin = async (e) => {
     e.preventDefault()
 
@@ -28,6 +42,8 @@ const LoginForm = ({ visible }) => {
       const res = await loginCustomer(loginFormData)
       if (res.data) {
         dispatch(setUser(res.data))
+        resetForm()
+        setVisible(false)
       }
     } catch (err) {
       console.log(err)
@@ -53,6 +69,8 @@ const LoginForm = ({ visible }) => {
       const res = await addCustomer(newUser)
       if (res.data) {
         dispatch(setUser(res.data))
+        resetForm()
+        setVisible(false)
       }
     } catch (err) {
       console.log(err)
@@ -61,6 +79,7 @@ const LoginForm = ({ visible }) => {
 
   return (
     <>
+      {(loginLoading || registerLoading) && <Loader />}
       {visible && (
         <div className={`${styles.wrapper}`}>
           <h3>{register ? "Register Customer" : "Login Customer"}</h3>
